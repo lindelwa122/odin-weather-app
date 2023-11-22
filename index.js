@@ -23,18 +23,6 @@ const processData = (current, { forecastday }) => {
   }
 };
 
-const fetchData = async (city) => {
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=e72994fb87454c6b9ca122701231211&q=${city}&days=4`
-  );
-
-  const { current, forecast } = await response.json();
-
-  console.log(current)
-
-  return processData(current, forecast);
-}
-
 console.log(fetchData('pretoria'))
 
 document.querySelector('form').addEventListener('submit', async (e) => {
