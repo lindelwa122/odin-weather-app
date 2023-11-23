@@ -54,7 +54,7 @@ const processData = (data) => {
   };
 
   const forecast = data.forecast.forecastday.map(({ date, day }) => ({
-    icon: 'https' + day.condition.icon,
+    icon: 'https:' + day.condition.icon,
     minTemp: day.mintemp_c,
     maxTemp: day.maxtemp_c,
     date: new Date(date),
