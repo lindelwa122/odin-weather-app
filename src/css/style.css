@@ -231,6 +231,6 @@ nav > div:first-child {
 }
 
 .other-large-cities .weather-icon {
-  transform: translateX(10px);
+  transform: translateX(5px);
   width: 10%;
 }
