@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const currentWeather = (current) => ({
   options: { className: 'weather-current' },
 
@@ -35,7 +37,7 @@ const currentWeather = (current) => ({
       options: {
         className: 'date',
         innerHTML: `<i class="bi bi-calendar-week"></i>
-        <div>22 Nov 2023, <span class="time">08:52</span></div>`,
+        <div>${format(current.date, 'PPP')}, <span class="time">${format(current.date, 'p')}</span></div>`,
       }
     }
   ]
