@@ -128,7 +128,7 @@ const renderUI = () => {
   };
 
   const root = {
-    children: [navbar(), main]
+    children: [navbar(currentData.country, currentData.city), main]
   };
 
   domManager.create(root);
