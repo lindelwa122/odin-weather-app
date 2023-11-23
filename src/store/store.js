@@ -1,7 +1,11 @@
-import { store } from 'dom-wizard';
+import { domManager, store } from 'dom-wizard';
+import navbar from '../components/navbar';
+import currentWeather from '../components/currentWeather';
+import highlights from '../components/highlights';
+import forecast from '../components/forecast';
 
 store.createStore({
-  initialCity: null,
+  city: null,
   current: null,
   highlights: null,
   largeCities: null,
@@ -10,21 +14,20 @@ store.createStore({
 });
 
 // set initial city
-(() => {
+(async () => {
   const errorHandler = () => {
-    console.warn('Geolocation is blocked so the city will be initially set to Durban');
-    store.updateState('initialCity', 'durban');
+    console.warn('Geolocation is blocked or failed, so the city will be initially set to Durban');
+    store.updateState('city', 'durban');
+    updateStore();
   };
 
+  const successHandler = ({ coords }) => {
+    store.updateState('city', `${coords.latitude},${coords.longitude}`);
+    updateStore();
+  }
+
   if ('geolocation' in navigator) {
-    try {
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        store.updateState('initialCity', `${coords.latitude},${coords.longitude}`);
-      });
-    } catch (error) {
-      errorHandler();
-      console.error(error);
-    }
+    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
   } else {
     errorHandler();
   }
@@ -47,7 +50,7 @@ const processData = (data) => {
   };
 
   const forecast = data.forecast.forecastday.map(({ date, day }) => ({
-    icon: day.condition.icon,
+    icon: 'https' + day.condition.icon,
     minTemp: day.mintemp_c,
     maxTemp: day.maxtemp_c,
     date: new Date(date),
@@ -56,7 +59,7 @@ const processData = (data) => {
   const highlights = [
     {
       title: 'Feels like',
-      data: data.current.feeslike_c,
+      data: data.current.feelslike_c,
     },
     {
       title: 'Humidity',
@@ -104,5 +107,24 @@ const updateStore = async () => {
 };
 
 const renderUI = () => {
-  // todo
+  const currentData = store.getState('current');
+  const todaysHighlights = store.getState('highlights');
+  const forecastData = store.getState('forecast');
+
+  const main = {
+    tagName: 'main',
+    children: [ 
+      currentWeather(currentData),
+      highlights(todaysHighlights),
+      forecast(forecastData),
+    ]
+  };
+
+  const root = {
+    children: [navbar(), main]
+  };
+
+  domManager.create(root);
 }
+
+export { renderUI };
