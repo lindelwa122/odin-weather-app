@@ -15,15 +15,17 @@ store.createStore({
 
 // set initial city
 (async () => {
-  const errorHandler = () => {
+  const errorHandler = async () => {
     console.warn('Geolocation is blocked or failed, so the city will be initially set to Durban');
     store.updateState('city', 'durban');
-    updateStore();
+    await updateStore();
+    renderUI();
   };
 
-  const successHandler = ({ coords }) => {
+  const successHandler = async ({ coords }) => {
     store.updateState('city', `${coords.latitude},${coords.longitude}`);
-    updateStore();
+    await updateStore();
+    renderUI();
   }
 
   if ('geolocation' in navigator) {
@@ -47,6 +49,8 @@ const processData = (data) => {
     icon: 'https:' + data.current.condition.icon,
     condition: data.current.condition.text,
     data: new Date(data.current.last_updated),
+    city: data.location.name,
+    country: data.location.country,
   };
 
   const forecast = data.forecast.forecastday.map(({ date, day }) => ({
@@ -111,6 +115,9 @@ const renderUI = () => {
   const todaysHighlights = store.getState('highlights');
   const forecastData = store.getState('forecast');
 
+  console.log('current data', currentData)
+  console.log('city', store.getState('city'))
+
   const main = {
     tagName: 'main',
     children: [ 
@@ -127,4 +134,4 @@ const renderUI = () => {
   domManager.create(root);
 }
 
-export { renderUI };
+console.log('I run first, store for the win')
