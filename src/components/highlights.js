@@ -1,10 +1,12 @@
 const highlights = (info) => {
-  const item = ({ title, data }) => ({
+  const item = ({ title, data, symbol, icon }) => ({
     children: [
       { text: title, options: { className: 'title' } },
       { options: {
         className: 'info',
-        innerHTML: `<span>${data}</span> <span class="symbol">%</span>`
+        innerHTML: `<div>
+          <span>${data}</span> <span class="symbol">${symbol}</span>
+        </div><i class='bi ${icon}'></i>`
       } },
     ]
   });

@@ -60,42 +60,62 @@ const processData = (data) => {
     date: new Date(date),
   }));
 
+  console.log(data.current)
+
   const highlights = [
     {
       title: 'Feels like',
       data: data.current.feelslike_c,
+      symbol: '\u00B0C',
+      icon: 'bi-thermometer-half',
     },
     {
       title: 'Humidity',
       data: data.current.humidity,
+      symbol: '',
+      icon: 'bi-droplet',
     },
     {
       title: 'UV index',
       data: data.current.uv,
+      symbol: 'UV',
+      icon: 'bi-sun',
     },
     {
       title: 'Wind (kph)',
-      data: data.current.wind_kph
+      data: data.current.wind_kph,
+      symbol: 'kph',
+      icon: 'bi-wind',
     },
     {
       title: 'Wind direction',
-      data: data.current.wind_dir
+      data: data.current.wind_dir,
+      symbol: '',
+      icon: 'bi-compass',
     },
     {
       title: 'Wind Degree',
       data: data.current.wind_degree,
+      symbol: '\u00B0',
+      icon: 'bi-tropical-storm',
     },
     {
       title: 'Precip (mm)',
       data: data.current.precip_mm,
+      symbol: 'mm',
+      icon: 'bi-moisture',
     },
     {
       title: 'Gust (kph)',
       data: data.current.gust_kph,
+      symbol: 'kph',
+      icon: 'bi-cloud-haze2',
     },
     {
-      title: 'Vis (km)',
+      title: 'Visibility (km)',
       data: data.current.vis_km,
+      symbol: 'km',
+      icon: 'bi-eye',
     }
   ];
 
