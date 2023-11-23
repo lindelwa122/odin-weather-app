@@ -65,6 +65,21 @@ body {
   padding: var(--g-padding);
 }
 
+dialog {
+  background-color: var(--bg-color);
+  border: 3px solid var(--s-bg-color);
+  border-radius: var(--g-bd-radius);
+  color: var(--font-color);
+  padding: var(--g-padding);
+}
+
+dialog > .close-modal {
+  display: flex;
+  cursor: pointer;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
 form {
   display: flex;
   gap: 20px;

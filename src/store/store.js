@@ -4,13 +4,18 @@ import currentWeather from '../components/currentWeather';
 import highlights from '../components/highlights';
 import forecast from '../components/forecast';
 import otherCities from '../components/otherCities';
+import dialog from '../components/dialog';
 
 store.createStore({
   city: null,
   updateCity: async (newValue) => {
     store.updateState('city', newValue);
-    await updateStore();
-    renderUI();
+    try {
+      await updateStore();
+      renderUI();
+    } catch (error) {
+      dialog.showModal(error);
+    }
   },
   current: null,
   highlights: null,
@@ -38,9 +43,13 @@ const fetchOtherCitiesData = async () => {
 (async () => {
   // update store and render ui
   const USRUI = async () => {
-    await updateStore();
-    await fetchOtherCitiesData();
-    renderUI();
+    try {
+      await updateStore();
+      await fetchOtherCitiesData();
+      renderUI();
+    } catch (error) {
+      throw new Error(error);
+    }
   } 
 
   const errorHandler = async () => {
@@ -66,6 +75,11 @@ const fetchData = async (city) => {
     `https://api.weatherapi.com/v1/forecast.json?key=e72994fb87454c6b9ca122701231211&q=${city}&days=4`
   );
   const data = await response.json();
+
+  if (data.error) {
+    throw new Error(data.error.message);
+  }
+
   return processData(data);
 };
 
@@ -86,7 +100,6 @@ const processData = (data) => {
     date: new Date(date),
   }));
 
-  console.log(data.current)
 
   const highlights = [
     {
@@ -162,9 +175,6 @@ const renderUI = () => {
   const forecastData = store.getState('forecast');
   const cities = store.getState('other');
 
-  console.log('current data', currentData)
-  console.log('cities', store.getState('other'));
-  console.log('cities length', store.getState('other').length);
 
   const main = {
     tagName: 'main',
@@ -173,6 +183,7 @@ const renderUI = () => {
       highlights(todaysHighlights),
       forecast(forecastData),
       otherCities(cities),
+      dialog.content(),
     ]
   };
 
