@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const forecast = (data) => {
   const item = ({ icon, maxTemp, minTemp, date }) => ({
     children: [
@@ -12,8 +14,8 @@ const forecast = (data) => {
           { text: `+${minTemp}`, options: { className: 'min' }},
         ]
       },
-      { text: '29 Nov', options: { className: 'date'} },
-      { text: 'Thursday', options: { className: 'day'} },
+      { text: `${format(date, 'd')} ${format(date, 'LLL')}`, options: { className: 'date'} },
+      { text: format(date, 'EEEE'), options: { className: 'day'} },
     ]
   });
 
