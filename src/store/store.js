@@ -48,7 +48,7 @@ const processData = (data) => {
     temp: data.current.temp_c,
     icon: 'https:' + data.current.condition.icon,
     condition: data.current.condition.text,
-    data: new Date(data.current.last_updated),
+    date: new Date(data.current.last_updated),
     city: data.location.name,
     country: data.location.country,
   };
