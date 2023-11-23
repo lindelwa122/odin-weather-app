@@ -7,6 +7,11 @@ import otherCities from '../components/otherCities';
 
 store.createStore({
   city: null,
+  updateCity: async (newValue) => {
+    store.updateState('city', newValue);
+    await updateStore();
+    renderUI();
+  },
   current: null,
   highlights: null,
   largeCities: ['Jakarta', 'Cape Town', 'London', 'Tokyo'],

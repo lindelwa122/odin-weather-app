@@ -1,3 +1,5 @@
+import { store } from 'dom-wizard';
+
 const navbar = (country, city) => {
   const leftDiv = () => {
     const location = {
@@ -10,7 +12,14 @@ const navbar = (country, city) => {
 
     const form = {
       tagName: 'form',
-      options: { className: 'search-city' },
+      options: { 
+        className: 'search-city',
+        onsubmit: (e) => {
+          e.preventDefault();
+          const city = e.target[0].value;
+          store.getState('updateCity')(city);
+        },
+      },
       children: [
         {
           tagName: 'input',
