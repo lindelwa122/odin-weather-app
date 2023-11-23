@@ -10,8 +10,8 @@ const forecast = (data) => {
       {
         options: { className: 'temp' },
         children: [
-          { text: `+${maxTemp}/`, options: { className: 'max' }},
-          { text: `+${minTemp}`, options: { className: 'min' }},
+          { text: `${maxTemp}/`, options: { className: 'max' }},
+          { text: `${minTemp}`, options: { className: 'min' }},
         ]
       },
       { text: `${format(date, 'd')} ${format(date, 'LLL')}`, options: { className: 'date'} },
