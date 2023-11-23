@@ -14,7 +14,7 @@ const currentWeather = (current) => ({
     },
 
     {
-      text: `${current.temp}\u00B0 C`,
+      text: `${current.temp} \u00B0C`,
       options: { className: 'temp' },
     },
 
