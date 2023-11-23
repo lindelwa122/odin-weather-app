@@ -3,29 +3,50 @@ import navbar from '../components/navbar';
 import currentWeather from '../components/currentWeather';
 import highlights from '../components/highlights';
 import forecast from '../components/forecast';
+import otherCities from '../components/otherCities';
 
 store.createStore({
   city: null,
   current: null,
   highlights: null,
-  largeCities: null,
-  other: null,
+  largeCities: ['Jakarta', 'Cape Town', 'London', 'Tokyo'],
+  other: [],
   forecast: null,
 });
 
+// set data of other large cities
+const fetchOtherCitiesData = async () => {
+  const updateStore = (newData) => {
+    const storedData = store.getState('other');
+    storedData.push(newData);
+    store.updateState('other', storedData);
+  }
+
+  const cities = store.getState('largeCities');
+  for (const city of cities) {
+    const { current } = await fetchData(city);
+    updateStore(current);
+  }
+};
+
 // set initial city
 (async () => {
+  // update store and render ui
+  const USRUI = async () => {
+    await updateStore();
+    await fetchOtherCitiesData();
+    renderUI();
+  } 
+
   const errorHandler = async () => {
     console.warn('Geolocation is blocked or failed, so the city will be initially set to Durban');
     store.updateState('city', 'durban');
-    await updateStore();
-    renderUI();
+    USRUI();
   };
 
   const successHandler = async ({ coords }) => {
     store.updateState('city', `${coords.latitude},${coords.longitude}`);
-    await updateStore();
-    renderUI();
+    USRUI();
   }
 
   if ('geolocation' in navigator) {
@@ -134,9 +155,11 @@ const renderUI = () => {
   const currentData = store.getState('current');
   const todaysHighlights = store.getState('highlights');
   const forecastData = store.getState('forecast');
+  const cities = store.getState('other');
 
   console.log('current data', currentData)
-  console.log('city', store.getState('city'))
+  console.log('cities', store.getState('other'));
+  console.log('cities length', store.getState('other').length);
 
   const main = {
     tagName: 'main',
@@ -144,6 +167,7 @@ const renderUI = () => {
       currentWeather(currentData),
       highlights(todaysHighlights),
       forecast(forecastData),
+      otherCities(cities),
     ]
   };
 
@@ -153,5 +177,3 @@ const renderUI = () => {
 
   domManager.create(root);
 }
-
-console.log('I run first, store for the win')
