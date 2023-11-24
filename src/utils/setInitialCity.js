@@ -1,6 +1,7 @@
 import { store } from 'dom-wizard';
 import updateStore from './updateStore';
 import fetchOtherCitiesData from './fetchOtherCitiesData';
+import renderUI from './renderUI';
 
 // set initial city
 const setInitialCity = async () => {

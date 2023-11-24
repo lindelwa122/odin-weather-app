@@ -18,6 +18,9 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "dom-wizard": "^0.0.7"
+    "@lindelwa122/dropdown-menu": "^0.2.4",
+    "date-fns": "^2.30.0",
+    "dom-wizard": "^0.0.7",
+    "normalize.css": "^8.0.1"
   }
 }
