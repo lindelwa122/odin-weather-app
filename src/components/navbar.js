@@ -52,7 +52,7 @@ const navbar = (country, city) => {
       options: { className: 'temperature-options' },
       after: () => {
         const preferences = dialog(
-          'Temperature',
+          'Scale',
           ['Celsius', 'Fahrenheit'],
           clickHandler
         );
