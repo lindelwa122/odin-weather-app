@@ -25,6 +25,7 @@ store.createStore({
   scale: 'celsius',
   updateScale: async (newScale) => {
     store.updateState('scale', newScale);
+    localStorage.setItem('scale', newScale);
     try {
       await updateStore();
       await fetchOtherCitiesData();
@@ -34,6 +35,10 @@ store.createStore({
     }
   },
 });
+
+// set scale based on the user preferences
+const preferredScale = localStorage.getItem('scale');
+if (preferredScale) store.updateState('scale', preferredScale);
 
 // set data of other large cities
 const fetchOtherCitiesData = async () => {
