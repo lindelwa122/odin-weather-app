@@ -315,3 +315,58 @@ nav > div:first-child {
 .lin-ddm-drop-down > .lin-ddm-list-items > :not(li:last-child) {
   border-color: var(--t-bg-color);
 }
+
+@media screen and (max-width: 1300px) and (min-width: 768px) {
+  main {
+    grid-template: repeat(2, 1fr) 0.7fr / repeat(2, 1fr);
+  }
+
+  .additional-info {
+    grid-area: 1 / 2 / span 2 / span 1;
+  }
+
+  .other-large-cities {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 1300px) and (min-width: 840px) {
+  .additional-info > .content > div {
+    flex: 1 1 160px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  form {
+    gap: 5px;
+  }
+
+  main {
+    grid-template: auto / 1fr;
+  }
+
+  nav .location {
+    display: none;
+  }
+
+  .other-large-cities > .content {
+    grid-template: auto / 1fr;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 768px) {
+  nav .weather-icon {
+    align-self: flex-start;
+    width: 30%;
+  }
+
+  .forecast .weather-icon {
+    width: 15%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .additional-info {
+    display: none;
+  }
+}
