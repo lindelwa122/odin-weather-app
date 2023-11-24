@@ -5,10 +5,16 @@ import highlights from '../components/highlights';
 import forecast from '../components/forecast';
 import otherCities from '../components/otherCities';
 import dialog from '../components/dialog';
+import loading from '../components/loading';
+
+loading();
 
 store.createStore({
   city: null,
   updateCity: async (newValue) => {
+    // show loading screen
+    loading();
+
     store.updateState('city', newValue);
     try {
       await updateStore();

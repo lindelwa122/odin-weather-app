@@ -212,6 +212,41 @@ nav > div:first-child {
   width: 20%;
 }
 
+.loading-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loading {
+  width: 70%;
+  height: 50px;
+  border-radius: var(--g-bd-radius);
+  background-color: var(--t-bg-color);
+  animation: scale-up-down 1s infinite;
+}
+
+@keyframes scale-up-down {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.loading:nth-child(2) {
+  /* transform: translateX(50%); */
+  align-self: center;
+}
+
+.loading:last-child {
+  /* transform: translateX(100%); */
+  align-self: flex-end;
+}
+
 .other-large-cities {
   font-size: 0.9em;
 }
