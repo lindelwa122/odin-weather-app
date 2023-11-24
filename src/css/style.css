@@ -304,16 +304,15 @@ nav > div:first-child {
 }
 
 .lin-ddm-drop-down > .lin-ddm-list-items {
-  background-color: var(--s-bg-color);
-  transition: background-color 0.5s;
+  background-color: var(--s-bg-color) !important;
 }
 
 .lin-ddm-drop-down > .lin-ddm-list-items > li:hover {
-  background-color: var(--bg-color);
+  background-color: var(--bg-color) !important;
 }
 
 .lin-ddm-drop-down > .lin-ddm-list-items > :not(li:last-child) {
-  border-color: var(--t-bg-color);
+  border-color: var(--t-bg-color) !important;
 }
 
 @media screen and (max-width: 1300px) and (min-width: 768px) {
