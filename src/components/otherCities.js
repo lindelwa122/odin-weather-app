@@ -1,4 +1,4 @@
-const otherCities = (data) => {
+const otherCities = (data, scale) => {
   const upper = (city, country, icon) => ({
     children: [
       { options: { 
@@ -21,7 +21,7 @@ const otherCities = (data) => {
   const lower = (temp, condition) => ({
     children: [
       { text: condition, options: { className: 'condition' }},
-      { text: `${temp} \u00B0C`, options: { className: 'temp' }}
+      { text: `${temp} \u00B0${scale === 'celsius' ? 'C' : 'F'}`, options: { className: 'temp' }}
     ]
   })
 

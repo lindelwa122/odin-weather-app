@@ -1,4 +1,5 @@
 import { store } from 'dom-wizard';
+import dialog from '@lindelwa122/dropdown-menu';
 
 const navbar = (country, city) => {
   const leftDiv = () => {
@@ -41,7 +42,24 @@ const navbar = (country, city) => {
     return { children: [location, form] };
   } 
 
-  const rightDiv = () => ({});
+  const rightDiv = () => {
+    const clickHandler = (e) => {
+      const scale = e.target.innerText;
+      store.getState('updateScale')(scale.toLowerCase());
+    };
+
+    return {
+      options: { className: 'temperature-options' },
+      after: () => {
+        const preferences = dialog(
+          'Temperature',
+          ['Celsius', 'Fahrenheit'],
+          clickHandler
+        );
+        preferences.append('nav .temperature-options')
+      }
+    }
+  };
 
   return { tagName: 'nav', children: [leftDiv(), rightDiv()]};
 }

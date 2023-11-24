@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-const currentWeather = (current) => ({
+const currentWeather = (current, scale) => ({
   options: { className: 'weather-current' },
 
   children: [
@@ -14,7 +14,7 @@ const currentWeather = (current) => ({
     },
 
     {
-      text: `${current.temp} \u00B0C`,
+      text: `${current.temp} \u00B0${scale === 'celsius' ? 'C' : 'F'}`,
       options: { className: 'temp' },
     },
 

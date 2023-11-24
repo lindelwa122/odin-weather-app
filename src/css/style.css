@@ -130,6 +130,12 @@ main {
   row-gap: 40px;
 }
 
+nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
 nav > div:first-child {
   display: flex;
   justify-content: space-between;
@@ -248,4 +254,29 @@ nav > div:first-child {
 .other-large-cities .weather-icon {
   transform: translateX(5px);
   width: 10%;
+}
+
+/* Overriding some dropdown menu rules */
+.lin-ddm-header {
+  background-color: var(--s-bg-color);
+  border-radius: var(--g-bd-radius);
+  gap: 10px;
+  padding: 20px;
+}
+
+.lin-ddm-header img {
+  filter: brightness(0) invert(1);
+}
+
+.lin-ddm-drop-down > .lin-ddm-list-items {
+  background-color: var(--s-bg-color);
+  transition: background-color 0.5s;
+}
+
+.lin-ddm-drop-down > .lin-ddm-list-items > li:hover {
+  background-color: var(--bg-color);
+}
+
+.lin-ddm-drop-down > .lin-ddm-list-items > :not(li:last-child) {
+  border-color: var(--t-bg-color);
 }

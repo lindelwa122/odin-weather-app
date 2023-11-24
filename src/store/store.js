@@ -22,10 +22,22 @@ store.createStore({
   largeCities: ['Jakarta', 'Cape Town', 'London', 'Tokyo'],
   other: [],
   forecast: null,
+  scale: 'celsius',
+  updateScale: async (newScale) => {
+    store.updateState('scale', newScale);
+    try {
+      await updateStore();
+      await fetchOtherCitiesData();
+      renderUI();
+    } catch (error) {
+      dialog.showModal(error);
+    }
+  },
 });
 
 // set data of other large cities
 const fetchOtherCitiesData = async () => {
+  store.updateState('other', []);
   const updateStore = (newData) => {
     const storedData = store.getState('other');
     storedData.push(newData);
@@ -38,37 +50,6 @@ const fetchOtherCitiesData = async () => {
     updateStore(current);
   }
 };
-
-// set initial city
-(async () => {
-  // update store and render ui
-  const USRUI = async () => {
-    try {
-      await updateStore();
-      await fetchOtherCitiesData();
-      renderUI();
-    } catch (error) {
-      throw new Error(error);
-    }
-  } 
-
-  const errorHandler = async () => {
-    console.warn('Geolocation is blocked or failed, so the city will be initially set to Durban');
-    store.updateState('city', 'durban');
-    USRUI();
-  };
-
-  const successHandler = async ({ coords }) => {
-    store.updateState('city', `${coords.latitude},${coords.longitude}`);
-    USRUI();
-  }
-
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
-  } else {
-    errorHandler();
-  }
-})();
 
 const fetchData = async (city) => {
   const response = await fetch(
@@ -84,8 +65,10 @@ const fetchData = async (city) => {
 };
 
 const processData = (data) => {
+  const scale = store.getState('scale');
+
   const current = {
-    temp: data.current.temp_c,
+    temp: scale === 'celsius' ? data.current.temp_c : data.current.temp_f,
     icon: 'https:' + data.current.condition.icon,
     condition: data.current.condition.text,
     date: new Date(data.current.last_updated),
@@ -95,8 +78,8 @@ const processData = (data) => {
 
   const forecast = data.forecast.forecastday.map(({ date, day }) => ({
     icon: 'https:' + day.condition.icon,
-    minTemp: day.mintemp_c,
-    maxTemp: day.maxtemp_c,
+    minTemp: scale === 'celsius' ? day.mintemp_c : day.mintemp_f,
+    maxTemp: scale === 'celsius' ? day.maxtemp_c : day.maxtemp_f,
     date: new Date(date),
   }));
 
@@ -104,8 +87,8 @@ const processData = (data) => {
   const highlights = [
     {
       title: 'Feels like',
-      data: data.current.feelslike_c,
-      symbol: '\u00B0C',
+      data: scale === 'celsius' ? data.current.feelslike_c : data.current.feelslike_f,
+      symbol: `\u00B0${scale === 'celsius' ? 'C' : 'F'}`,
       icon: 'bi-thermometer-half',
     },
     {
@@ -174,15 +157,15 @@ const renderUI = () => {
   const todaysHighlights = store.getState('highlights');
   const forecastData = store.getState('forecast');
   const cities = store.getState('other');
-
+  const scale = store.getState('scale')
 
   const main = {
     tagName: 'main',
     children: [ 
-      currentWeather(currentData),
+      currentWeather(currentData, scale),
       highlights(todaysHighlights),
       forecast(forecastData),
-      otherCities(cities),
+      otherCities(cities, scale),
       dialog.content(),
     ]
   };
@@ -193,3 +176,37 @@ const renderUI = () => {
 
   domManager.create(root);
 }
+
+// set initial city
+(async () => {
+  // update store and render ui
+  const USRUI = async () => {
+    console.log('Hey, mate')
+    try {
+      await updateStore();
+      await fetchOtherCitiesData();
+      renderUI();
+    } catch (error) {
+      throw new Error(error);
+    }
+  } 
+
+  const errorHandler = () => {
+    console.log('Or maybe here')
+    console.warn('Geolocation is blocked or failed, so the city will be initially set to Durban');
+    store.updateState('city', 'durban');
+    USRUI();
+  };
+
+  const successHandler = ({ coords }) => {
+    console.log('Is the problem here')
+    store.updateState('city', `${coords.latitude},${coords.longitude}`);
+    USRUI();
+  }
+
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
+  } else {
+    errorHandler();
+  }
+})();
