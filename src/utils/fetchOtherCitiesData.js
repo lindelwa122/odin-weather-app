@@ -8,7 +8,7 @@ const fetchOtherCitiesData = async () => {
     const storedData = store.getState('other');
     storedData.push(newData);
     store.updateState('other', storedData);
-  }
+  };
 
   const cities = store.getState('largeCities');
   for (const city of cities) {

@@ -14,10 +14,12 @@ const setInitialCity = async () => {
     } catch (error) {
       throw new Error(error);
     }
-  } 
+  };
 
   const errorHandler = () => {
-    console.warn('Geolocation is blocked or failed, so the city will be initially set to Durban');
+    console.warn(
+      'Geolocation is blocked or failed, so the city will be initially set to Durban',
+    );
     store.updateState('city', 'durban');
     USRUI();
   };
@@ -25,7 +27,7 @@ const setInitialCity = async () => {
   const successHandler = ({ coords }) => {
     store.updateState('city', `${coords.latitude},${coords.longitude}`);
     USRUI();
-  }
+  };
 
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(successHandler, errorHandler);

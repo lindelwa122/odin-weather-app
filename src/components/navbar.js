@@ -6,14 +6,14 @@ const navbar = (country, city) => {
     const location = {
       options: { className: 'location' },
       children: [
-        { tagName: 'i', options: { classList: ['bi', 'bi-geo-alt-fill' ]}},
-        { text: `${city}, ${country}`}
-      ]
+        { tagName: 'i', options: { classList: ['bi', 'bi-geo-alt-fill'] } },
+        { text: `${city}, ${country}` },
+      ],
     };
 
     const form = {
       tagName: 'form',
-      options: { 
+      options: {
         className: 'search-city',
         onsubmit: (e) => {
           e.preventDefault();
@@ -30,17 +30,17 @@ const navbar = (country, city) => {
             id: 'city',
             placeholder: 'Search City',
             required: true,
-          }
+          },
         },
         {
           tagName: 'button',
-          options: { innerHTML: '<i class="bi bi-search"></i>' }
-        }
-      ]
-    }
+          options: { innerHTML: '<i class="bi bi-search"></i>' },
+        },
+      ],
+    };
 
     return { children: [location, form] };
-  } 
+  };
 
   const rightDiv = () => {
     const clickHandler = (e) => {
@@ -54,14 +54,14 @@ const navbar = (country, city) => {
         const preferences = dialog(
           'Scale',
           ['Celsius', 'Fahrenheit'],
-          clickHandler
+          clickHandler,
         );
-        preferences.append('nav .temperature-options')
-      }
-    }
+        preferences.append('nav .temperature-options');
+      },
+    };
   };
 
-  return { tagName: 'nav', children: [leftDiv(), rightDiv()]};
-}
+  return { tagName: 'nav', children: [leftDiv(), rightDiv()] };
+};
 
 export default navbar;

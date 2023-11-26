@@ -11,24 +11,24 @@ const renderUI = () => {
   const todaysHighlights = store.getState('highlights');
   const forecastData = store.getState('forecast');
   const cities = store.getState('other');
-  const scale = store.getState('scale')
+  const scale = store.getState('scale');
 
   const main = {
     tagName: 'main',
-    children: [ 
+    children: [
       currentWeather(currentData, scale),
       highlights(todaysHighlights),
       forecast(forecastData),
       otherCities(cities, scale),
       dialog.content(),
-    ]
+    ],
   };
 
   const root = {
-    children: [navbar(currentData.country, currentData.city), main]
+    children: [navbar(currentData.country, currentData.city), main],
   };
 
   domManager.create(root);
-}
+};
 
 export default renderUI;

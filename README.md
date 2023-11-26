@@ -2,7 +2,7 @@
 
 ![Weather App Previous](./src/images/weather-preview.png)
 
-This is a weather app that shows you the temperature of your city in Celsius or Fahrenheit (whatever you prefer). It shows you the day's highlights and forecast for the next three days. 
+This is a weather app that shows you the temperature of your city in Celsius or Fahrenheit (whatever you prefer). It shows you the day's highlights and forecast for the next three days.
 
 Click [here](https://lindelwa122.github.io/odin-weather-app) for the live preview.
 

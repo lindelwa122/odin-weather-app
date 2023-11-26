@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
 
 :root {
   --bg-color: #110f0f;
@@ -60,7 +60,7 @@
 body {
   background-color: var(--bg-color);
   color: var(--font-color);
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: var(--g-padding);
 }

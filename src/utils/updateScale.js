@@ -16,6 +16,6 @@ const updateScale = () => {
       dialog.showModal(error);
     }
   });
-}
+};
 
 export default updateScale;

@@ -17,6 +17,6 @@ const updateCity = () => {
       dialog.showModal(error);
     }
   });
-}
+};
 
 export default updateCity;

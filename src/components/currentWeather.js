@@ -30,17 +30,20 @@ const currentWeather = (current, scale) => ({
         className: 'location',
         innerHTML: `<i class="bi bi-geo-alt"></i>
         <span>${current.city}, ${current.country}</span>`,
-      }
+      },
     },
 
     {
       options: {
         className: 'date',
         innerHTML: `<i class="bi bi-calendar-week"></i>
-        <div>${format(current.date, 'PPP')}, <span class="time">${format(current.date, 'p')}</span></div>`,
-      }
-    }
-  ]
+        <div>${format(current.date, 'PPP')}, <span class="time">${format(
+          current.date,
+          'p',
+        )}</span></div>`,
+      },
+    },
+  ],
 });
 
 export default currentWeather;

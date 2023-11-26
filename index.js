@@ -10,24 +10,26 @@ const processData = (current, { forecastday }) => {
         maxWind: day.maxwind_kph,
         hour: [],
       };
-  
+
       hour.forEach((h) => {
         data.hour.push({
           tempInC: h.temp_c,
           tempInF: h.temp_f,
         });
       });
-  
+
       return { data, date };
-    })
-  }
+    }),
+  };
 };
 
-console.log(fetchData('pretoria'))
+console.log(fetchData('pretoria'));
 
 document.querySelector('form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const query = document.querySelector('input[type=search]').value.toLowerCase();
+  const query = document
+    .querySelector('input[type=search]')
+    .value.toLowerCase();
   const data = await fetchData(query);
   console.log(data);
 });
